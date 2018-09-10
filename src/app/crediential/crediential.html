@@ -1,0 +1,16 @@
+<script src="crediential.js"></script>
+<!-- <form method="post" novalidate> -->
+  <div id="msform">
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <li [ngClass]="{'active': selectedItem == 'crediential'}" (click)="selectedItem='crediential'">Crediential</li>
+      <li [ngClass]="{'active': selectedItem == 'deployService'}" (click)="selectedItem='deployService'">Deploy Service</li>
+      <li [ngClass]="{'active': selectedItem == 'details'}" (click)="selectedItem='details'">Detials</li>
+    </ul>
+    <!-- fieldsets -->
+    <app-login *ngIf="selectedItem == 'crediential'" (userId)="setUserId($event)"></app-login>
+    <app-service-deployment *ngIf="selectedItem == 'deployService'" [orgName]="getUserId()"></app-service-deployment>
+    <app-details *ngIf="selectedItem == 'details'"></app-details>
+  </div>
+<!-- </form> -->
+

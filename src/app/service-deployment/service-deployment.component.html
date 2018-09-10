@@ -1,0 +1,39 @@
+<fieldset>
+  <form  [formGroup]="deploymentForm" (ngSubmit)="onSubmit()">
+    <h2 class="fs-title">Deploy Service</h2>
+    <h3 class="fs-subtitle">Your presence on the social network</h3>
+    <div class="form-group row">
+      <label for="inputState" class="col-form-label">Organization</label>
+      <input class="form-control" type="text" placeholder="Readonly input here…" formControlName="organizationControl" readonly>
+      <!-- <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select> -->
+    </div>
+    <div class="form-group row">
+      <label for="inputState" class="col-form-label">Space</label>
+      <select id="inputState" class="form-control" formControlName="spaceControl" [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.spaceControl.errors }">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+      <div *ngIf="submitted&&deploymentForm.controls.spaceControl.errors" class="invalid-feedback">
+          <div *ngIf="deploymentForm.controls.spaceControl.errors.required">space is required</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputState" class="col-form-label">Service</label>
+      <select id="inputState" class="form-control" formControlName="serviceControl" [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.serviceControl.errors }">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+      <div *ngIf="submitted&&deploymentForm.controls.serviceControl.errors" class="invalid-feedback">
+          <div *ngIf="deploymentForm.controls.serviceControl.errors.required">service is required</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-form-label">URL</label>
+        <input type="url" class="form-control" id="inputPassword" placeholder="gitlab url">
+    </div>
+    <button type="submit" class="btn btn-success mb-2">Confirm identity</button>
+  </form>
+</fieldset>
