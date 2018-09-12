@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { ServiceDeploymentComponent } from './service-deployment/service-deployment.component';
 import { DetailsComponent } from './details/details.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ServicesModule } from '../services/service.module';
+import { ServicesModule } from './services/service.module';
 
 @NgModule({
   declarations: [

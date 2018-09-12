@@ -8,8 +8,8 @@
       <li [ngClass]="{'active': selectedItem == 'details'}" (click)="selectedItem='details'">Detials</li>
     </ul>
     <!-- fieldsets -->
-    <app-login *ngIf="selectedItem == 'crediential'" (userId)="setUserId($event)"></app-login>
-    <app-service-deployment *ngIf="selectedItem == 'deployService'" [orgName]="getUserId()"></app-service-deployment>
+    <app-login *ngIf="selectedItem == 'crediential'" (userId)="setUser($event)"></app-login>
+    <app-service-deployment *ngIf="selectedItem == 'deployService'" [userInfo]="getUser()"></app-service-deployment>
     <app-details *ngIf="selectedItem == 'details'"></app-details>
   </div>
 <!-- </form> -->

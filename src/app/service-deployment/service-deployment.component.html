@@ -1,5 +1,5 @@
 <fieldset>
-  <form  [formGroup]="deploymentForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="deploymentForm!==null" [formGroup]="deploymentForm" (ngSubmit)="onSubmit()">
     <h2 class="fs-title">Deploy Service</h2>
     <h3 class="fs-subtitle">Your presence on the social network</h3>
     <div class="form-group row">

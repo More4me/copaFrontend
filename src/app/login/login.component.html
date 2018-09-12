@@ -20,8 +20,8 @@
       <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && userForm.controls.password.errors }">
       <div *ngIf="submitted&&userForm.controls.password.errors" class="invalid-feedback">
           <div *ngIf="userForm.controls.password.errors.required">password is required</div>
-          <div *ngIf="userForm.controls.password.errors.min"> password can't be less than {{userForm.controls.password.errors.min.min}} </div>
-          <div *ngIf="userForm.controls.password.errors.max"> password must be less than {{userForm.controls.password.errors.max.max}} </div>
+          <div *ngIf="userForm.controls.password.errors.minlength"> password can't be less than {{userForm.controls.password.errors.minlength.requiredLength}} </div>
+          <div *ngIf="userForm.controls.password.errors.maxlength"> password must be less than {{userForm.controls.password.errors.maxlength.requiredLength}} </div>
     </div>
     </div>
     <button type="submit" class="btn btn-success mb-2" >Next</button>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, MinLengthValidator } from "@angular/forms";
-import { BackendApiService } from '../../services/backend-api.service';
+import { BackendApiService } from '../services/backend-api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,8 @@ export class LoginComponent implements OnInit {
   userForm:FormGroup;
   submitted:boolean=false;
   @Output('userId') public userInfoEmitter = new EventEmitter();
-  constructor(@Inject('BackendApiService') public backendApiService:BackendApiService) { }
+  constructor(@Inject('BackendApiService') public backendApiService:BackendApiService,
+  @Inject('BackendApiDumyService') public backendApiDumy) { }
 
   ngOnInit() {
     this.userForm= new FormGroup({
@@ -32,7 +33,9 @@ export class LoginComponent implements OnInit {
   //   );
   // }
   if(!this.userForm.invalid){
-    this.userInfoEmitter.emit(user.email+ ","+user.password);
+    this.backendApiDumy.login(user.email,user.password).then((response)=>{
+      console.log("ressssssspinse",response);
+      this.userInfoEmitter.emit(response);});
     console.log("userInfo",user.email+ ","+user.password);
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { BackendApiService } from '../services/backend-api.service';
 
 @Component({
   selector: 'app-service-deployment',
@@ -7,14 +8,32 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   styleUrls: ['./service-deployment.component.css']
 })
 export class ServiceDeploymentComponent implements OnInit {
-  deploymentForm:FormGroup;
+  deploymentForm:FormGroup=null;
   submitted:boolean=false;
-  @Input()orgName:string='';
-  constructor() { }
+  orgObject;
+  service;
+  space;
+  @Input('userInfo')userInfo;
+
+
+  constructor(@Inject('BackendApiService') public backendApiService:BackendApiService,
+  @Inject('BackendApiDumyService') public backendApiDumyService) { }
 
   ngOnInit() {
+    console.log("user info", this.userInfo, this.userInfo.id)
+    this.backendApiDumyService
+    .getOrganizationByUserId(this.userInfo.id)
+    .then((response)=>{
+      this.orgObject=response;
+      this.space=this.backendApiDumyService.getOrganizationSpace(this.orgObject.id);
+      this.service=this.backendApiDumyService.getOrganizationService(this.orgObject.id);
+    }).then((response)=>{this.initForm(response);});
+    
+  }
+
+  initForm(orgInfo){
     this.deploymentForm = new FormGroup({
-      organizationControl: new FormControl(this.orgName, Validators.required),
+      organizationControl: new FormControl(orgInfo.name, Validators.required),
       spaceControl: new FormControl('',Validators.required),
       serviceControl:new FormControl('',Validators.required)
     });

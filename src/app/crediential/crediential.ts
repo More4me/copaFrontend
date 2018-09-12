@@ -8,13 +8,13 @@ import { Component } from '@angular/core';
 export class CredientialComponent {
   title = 'copaFrontent';
   selectedItem:string ='crediential';
-  private userId:number;
-  setUserId(event){
-    console.log("LOLOLOLOLOLy",event);
+  private user:object;
+  setUser(event){
+    console.log("event ===> ",event);
     this.selectedItem='deployService';
-    this.userId=event;
+    this.user=event;
   }
-  getUserId(){
-    return this.userId.toString();
+  getUser(){
+    return this.user;
   }
 }
