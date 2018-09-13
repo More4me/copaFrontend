@@ -3,14 +3,14 @@
   <div id="msform">
     <!-- progressbar -->
     <ul id="progressbar">
-      <li [ngClass]="{'active': selectedItem == 'crediential'}" (click)="selectedItem='crediential'">Crediential</li>
-      <li [ngClass]="{'active': selectedItem == 'deployService'}" (click)="selectedItem='deployService'">Deploy Service</li>
-      <li [ngClass]="{'active': selectedItem == 'details'}" (click)="selectedItem='details'">Detials</li>
+      <li [ngClass]="{'active': selectedItem == 'crediential'}" >Crediential</li>
+      <li [ngClass]="{'active': selectedItem == 'deployService'}" >Deploy Service</li>
+      <li [ngClass]="{'active': selectedItem == 'details'}" >Detials</li>
     </ul>
     <!-- fieldsets -->
     <app-login *ngIf="selectedItem == 'crediential'" (userId)="setUser($event)"></app-login>
-    <app-service-deployment *ngIf="selectedItem == 'deployService'" [userInfo]="getUser()"></app-service-deployment>
-    <app-details *ngIf="selectedItem == 'details'"></app-details>
+    <app-service-deployment *ngIf="selectedItem == 'deployService'" [userInfo]="getUser()" (gitlabLink)="setgitLabUrl($event)"></app-service-deployment>
+    <app-details *ngIf="selectedItem == 'details'" [gitlabURL]="getGitLabURL()"></app-details>
   </div>
 <!-- </form> -->
 

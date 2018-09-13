@@ -12,28 +12,33 @@
     </div>
     <div class="form-group row">
       <label for="inputState" class="col-form-label">Space</label>
-      <select id="inputState" class="form-control" formControlName="spaceControl" [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.spaceControl.errors }">
-        <option selected>Choose...</option>
-        <option>...</option>
+      <select id="inputState" class="form-control" formControlName="spaceControl" [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.spaceControl.errors }" >
+        <option [ngValue]="null" disabled>Choose space</option>
+        <option *ngFor="let space of spaces" [value]="space.id">{{space.name}}</option>
       </select>
       <div *ngIf="submitted&&deploymentForm.controls.spaceControl.errors" class="invalid-feedback">
-          <div *ngIf="deploymentForm.controls.spaceControl.errors.required">space is required</div>
+          <div *ngIf="deploymentForm.controls.spaceControl.errors.required">Space Is Required</div>
       </div>
     </div>
     <div class="form-group row">
       <label for="inputState" class="col-form-label">Service</label>
       <select id="inputState" class="form-control" formControlName="serviceControl" [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.serviceControl.errors }">
-        <option selected>Choose...</option>
-        <option>...</option>
+        <option [ngValue]="null" disabled>Choose service</option>
+        <option *ngFor="let service of services" [value]="service.id">{{service.name}}</option>
       </select>
       <div *ngIf="submitted&&deploymentForm.controls.serviceControl.errors" class="invalid-feedback">
-          <div *ngIf="deploymentForm.controls.serviceControl.errors.required">service is required</div>
+          <div *ngIf="deploymentForm.controls.serviceControl.errors.required">Service Is Required</div>
       </div>
     </div>
     <div class="form-group row">
       <label for="inputPassword" class="col-form-label">URL</label>
-        <input type="url" class="form-control" id="inputPassword" placeholder="gitlab url">
-    </div>
-    <button type="submit" class="btn btn-success mb-2">Confirm identity</button>
+        <input type="url" class="form-control" formControlName="urlControl" id="inputPassword" placeholder="gitlab url"  [ngClass]="{ 'is-invalid': submitted && deploymentForm.controls.urlControl.errors }">
+        <div *ngIf="submitted&&deploymentForm.controls.urlControl.errors" class="invalid-feedback">
+            <div *ngIf="deploymentForm.controls.urlControl.errors.pattern">Invalid URL</div>
+        </div>
+      </div>
+   
+    
+    <button type="submit" class="btn btn-success mb-2">Deploy</button>
   </form>
 </fieldset>

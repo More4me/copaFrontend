@@ -68,22 +68,22 @@ export class BackendApiDumyService {
     //   return this.http.get(BackendApiService.GET_ORGANIZATION_SERVICE_ENDPOINT+ "?orgId=" + orgId)
     //   .pipe(map((response:Response)=> response.json()));
     var service = {
-      service: [
+      services: [
         {
           id: 1,
-          name: "space1"
+          name: "service1"
         },
         {
           id: 2,
-          name: "space2"
+          name: "service2"
         },
         {
           id: 3,
-          name: "space3"
+          name: "service3"
         },
         {
           id: 4,
-          name: "space4"
+          name: "service4"
         }
       ]
     };
@@ -91,8 +91,8 @@ export class BackendApiDumyService {
   }
 
   // ToDo: post data and get url or just get url
-  public getGitlabPiplineLink(): Observable<any> {
+  public getGitlabPiplineLink(anyobject): Promise<any> {
     // return this.http.get(BackendApiService.GET_GITLAB_URL_ENDPOINT).pipe(map((response:Response)=> response.json()))
-    return null;
+    return Promise.resolve("https://gitlab.forge.orange-labs.fr/users/sign_in/");
   }
 }

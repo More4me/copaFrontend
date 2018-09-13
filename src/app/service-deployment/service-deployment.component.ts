@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { BackendApiService } from '../services/backend-api.service';
 
@@ -11,9 +11,10 @@ export class ServiceDeploymentComponent implements OnInit {
   deploymentForm:FormGroup=null;
   submitted:boolean=false;
   orgObject;
-  service;
-  space;
+  services:Array<Object>=null;
+  spaces:Array<Object>=null;
   @Input('userInfo')userInfo;
+  @Output('gitlabLink') public gitlabLinkEmitter = new EventEmitter();
 
 
   constructor(@Inject('BackendApiService') public backendApiService:BackendApiService,
@@ -25,24 +26,38 @@ export class ServiceDeploymentComponent implements OnInit {
     .getOrganizationByUserId(this.userInfo.id)
     .then((response)=>{
       this.orgObject=response;
-      this.space=this.backendApiDumyService.getOrganizationSpace(this.orgObject.id);
-      this.service=this.backendApiDumyService.getOrganizationService(this.orgObject.id);
-    }).then((response)=>{this.initForm(response);});
+      this.backendApiDumyService.getOrganizationSpace(this.orgObject.id).then((response)=>{
+        this.spaces=response.spaces;
+        console.log("spacessssss",response);
+      });
+      
+      this.backendApiDumyService.getOrganizationService(this.orgObject.id).then((response)=>{
+        this.services=response.services;
+        console.log("servicesss",this.services,"-",response);
+      });
+    }).then((response)=>{this.initForm(this.orgObject.name);});
     
   }
 
-  initForm(orgInfo){
+  initForm(orgName){
     this.deploymentForm = new FormGroup({
-      organizationControl: new FormControl(orgInfo.name, Validators.required),
-      spaceControl: new FormControl('',Validators.required),
-      serviceControl:new FormControl('',Validators.required)
+      organizationControl: new FormControl(orgName, Validators.required),
+      spaceControl: new FormControl(null,Validators.required),
+      serviceControl:new FormControl(null,Validators.required),
+      urlControl: new FormControl('', Validators.pattern("^.*(?:gitlab\.forge\.orange-labs\.fr).*$"))
     });
   }
 
   onSubmit(){
-    console.log("Clicked");
+    console.log("submit",this.deploymentForm.valid," - ",this.deploymentForm);
     this.submitted=true;
-    console.log("ERRORS ",this.deploymentForm.controls);
+    if(this.deploymentForm.valid){
+    var project_data=this.deploymentForm.value;
+    this.backendApiDumyService.getGitlabPiplineLink(project_data).then((response)=>{
+      this.gitlabLinkEmitter.emit(response);
+    });
   }
-
+  }
+  
+  
 }
