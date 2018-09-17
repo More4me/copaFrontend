@@ -11,7 +11,6 @@ export class CredientialComponent {
   private user:object;
   private gitlabUrl:string;
   setUser(event){
-    console.log("event ===> ",event);
     this.selectedItem='deployService';
     this.user=event;
   }

@@ -21,19 +21,16 @@ export class ServiceDeploymentComponent implements OnInit {
   @Inject('BackendApiDumyService') public backendApiDumyService) { }
 
   ngOnInit() {
-    console.log("user info", this.userInfo, this.userInfo.id)
     this.backendApiDumyService
     .getOrganizationByUserId(this.userInfo.id)
     .then((response)=>{
       this.orgObject=response;
       this.backendApiDumyService.getOrganizationSpace(this.orgObject.id).then((response)=>{
         this.spaces=response.spaces;
-        console.log("spacessssss",response);
       });
       
       this.backendApiDumyService.getOrganizationService(this.orgObject.id).then((response)=>{
         this.services=response.services;
-        console.log("servicesss",this.services,"-",response);
       });
     }).then((response)=>{this.initForm(this.orgObject.name);});
     
@@ -49,7 +46,7 @@ export class ServiceDeploymentComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log("submit",this.deploymentForm.valid," - ",this.deploymentForm);
+    
     this.submitted=true;
     if(this.deploymentForm.valid){
     var project_data=this.deploymentForm.value;
